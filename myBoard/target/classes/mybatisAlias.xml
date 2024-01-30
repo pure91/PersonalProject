@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- Mybatis 설정 -->
+	<settings>
+		<!-- 전통적인 데이터베이스 컬럼명을 CamelCase형태의 자바 프로퍼티명 형태로 자동 매핑함 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		
+		<!-- 파라미터에 Null 값이 들어오는 경우 에러처리 -->
+		<setting name="jdbcTypeForNull" value="VARCHAR"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="kr.co.khm.vo.BoardVO" alias="boardVO"/>
+	</typeAliases>
+
+</configuration>
