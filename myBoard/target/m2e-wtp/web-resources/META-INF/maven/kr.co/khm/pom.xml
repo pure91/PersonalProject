@@ -170,11 +170,17 @@
 		</dependency>
 		<!-- json 사용을 위한 의존관계 정의 끝 -->
 		
-		<!-- 파일을 처리하기 위한 의존 라이브러리 -->
+		<!-- 파일을 처리하기 위한 의존 라이브러리, commons-io랑 commons-fileupload 꼭 둘다 같이 있어야하는듯 -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.11.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.1</version>
 		</dependency>
 		
 	</dependencies>

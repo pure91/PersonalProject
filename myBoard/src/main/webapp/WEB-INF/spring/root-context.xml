@@ -2,7 +2,61 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 파일업로드 경로 설정(임시 보관 용도) -->
+	<bean id="uploadFolder" class="java.lang.String">
+		<constructor-arg value="C:\\Users\\User\\git\\PersonalProject\\myBoard\\src\\main\\webapp\\resources\\upload" />
+	</bean>
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	<!-- 파일업로드 디렉토리 설정(실제 이미지 파일이 저장될 디렉토리) -->
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="c:\\upload" />
+	</bean>
+	
+	<!-- 파일업로드 설정  -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 
+			파일업로드 용량 (20MB)
+			최대 업로드 가능한 바이트 사이즈( -1로 설정할 경우 언리미티드! 제한없음!) 
+		-->
+		<property name="maxUploadSize" value="52428800" />
+		<property name="maxInMemorySize" value="10485760" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	
+
+	<!-- DB 연동 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="myboard" />
+		<property name="password" value="java"/>
+	</bean>
+	
+	<!-- Mybatis DB 프로그램의 자동화 객체 template -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- Mybatis DB 프로그램에서 사용할 객체
+		 클래스패스를 기준으로 상대경로인데 sqlmap패키지 내에 있는 모든 하위패키지와
+		 그 하위에 있는 파일을 찾아서 사용함 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:/sqlmap/**/*_SQL.xml" />
+		<property name="configLocation" value="classpath:/mybatisAlias.xml" />
+	</bean>
+	
+	<!-- Mapper 인터페이스 객체 생성
+		 kr.co.khm패키지 내의 모든 하위패키지에 위치한 매퍼 인터페이스들을
+	 	 스캔하여 빈으로 등록하고 사용함 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="kr.co.khm.mapper" />
+	</bean>
+	
+
+
 </beans>

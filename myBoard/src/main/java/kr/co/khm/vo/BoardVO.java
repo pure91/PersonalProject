@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * @author 김형민
- * @category 자유게시판
+ * @category 자유게시판 VO
  * @since 2024.01.30
  */
 

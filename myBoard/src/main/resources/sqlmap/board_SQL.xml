@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="kr.co.khm.mapper.BoardMapper">
 
-
+	<!-- 자유게시판 조회 -->
+	<select id="listFreeBoard" resultType="boardVO">
+		select FREE_SEQ, FREE_TITLE, USERS_NAME, FREE_WRT_DATE, FREE_CNT
+		from FREE
+		order by FREE_SEQ DESC
+	</select>
+	
+	<!-- 자유게시판 글 등록 -->
+	<insert id="insertFreeBoard">
+		insert into FREE (FREE_SEQ, USERS_ID, USERS_NAME, FREE_TITLE, FREE_CONTENTS, FREE_CNT, FREE_WRT_DATE, FREE_MDF_DATE, FILES_SEQ)
+		values(FREE_SEQ.nextval, 1, 임시, #{freeTitle}, #{freeContents}, 0, SYSDATE, SYSDATE, #{filesSeq})
+	</insert>
 </mapper>
