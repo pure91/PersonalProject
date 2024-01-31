@@ -1,5 +1,7 @@
 package kr.co.khm.mapper;
 
+import kr.co.khm.vo.UsersVO;
+
 /**
  * @author 김형민
  * @category 회원가입, 회원 로그인 Mapper interface
@@ -8,4 +10,18 @@ package kr.co.khm.mapper;
 
 public interface UsersMapper {
 
+	/**
+	 * 로그인 처리
+	 * @param usersVO
+	 * @return
+	 */
+	public UsersVO login(UsersVO usersVO);
+
+	
+	/**
+	 * 회원 가입
+	 * @param usersVO
+	 * @return
+	 */
+	public int join(UsersVO usersVO);
 }
