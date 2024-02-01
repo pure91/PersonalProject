@@ -28,26 +28,26 @@ public class BoardController {
 	@Autowired BoardService boardService;
 	
 	/* 자유게시판 목록 조회 */
-	@GetMapping("/free/list")
+	@GetMapping("/freeList")
 	public String listFreeBoard(Model model) {
 		
 		List<BoardVO> freeBoardList = this.boardService.listFreeBoard();
 		log.info("freeBoardList : " + freeBoardList);
 		model.addAttribute("freeBoardList", freeBoardList);
 		
-		return "board/free/list";
+		return "board/freeList";
 	}
 	
 	/* 자유게시판 게시글 등록 */
-	@PostMapping("/free/insert")
+	@PostMapping("/freeInsert")
 	public String insertFreeBoard(@ModelAttribute BoardVO boardVO) {
 		int insertCnt = boardService.insertFreeBoard(boardVO);
 		log.info("insertFreeBoard : " + insertCnt);
 		
 		if (insertCnt > 0) {
-			return "redirect:/board/free/list";
+			return "redirect:/board/freeList";
 		} else {
-			return "/board/free/insert";
+			return "board/freeInsert";
 		}
 	}
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.khm.mapper.UsersMapper">
+
+	<!-- 로그인처리 -->
+	<select id="login" resultType="usersVO">
+		select USERS_ID, USERS_PW, USERS_AUTH, USERS_NAME, USERS_EMAIL, USERS_ZIP, USERS_ADDRESS, USERS_ADDRESS2
+		from USERS
+		where (USERS_ID = #{usersId} and USERS_PW = #{usersPw})
+	</select>
+	
+	<!-- 회원가입처리 -->
+	<insert id="join" parameterType="usersVO">
+		<selectKey resultType="string" order="BEFORE" keyProperty="USERS_ID">
+			SELECT MAX(USERS_ID)+1 FROM USERS
+		</selectKey>
+		insert into USERS(USERS_ID, USERS_PW, USERS_AUTH, USERS_NAME, USERS_EMAIL, USERS_ZIP, USERS_ADDRESS, USERS_ADDRESS2, USERS_GENDER)
+		VALUES(#{usersId}, #{usersPw}, #{usersAuth}, #{usersEmail}, #{usersZip}, #{usersAddress}, #{usersAddress2}, #{usersGender})
+	</insert>
+	
+</mapper>

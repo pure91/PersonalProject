@@ -36,7 +36,7 @@
 </head>
 <body>
 	<h2>자유게시판 목록</h2>
-	<form action="/board/free/insert" method="post">
+	<form action="/board/freeInsert" method="post">
 		<button type="submit" id="addBoard">글쓰기</button>
 	</form>
 	<table id="freeBoardTable">

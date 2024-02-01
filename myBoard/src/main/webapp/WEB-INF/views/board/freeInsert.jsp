@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h2>자유게시판 게시글 등록</h2>
-	<form action="/board/free/insert" method="post" enctype="multipart/form-data">
+	<form action="/board/freeInsert" method="post" enctype="multipart/form-data">
 		<!-- 제목 -->
 		<label for="title">제목 : </label>
 		<input type="text" id="freeTitle" name="freeTitle" required>

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.khm.service.UsersService;
 import kr.co.khm.vo.UsersVO;
@@ -45,8 +44,7 @@ public class UsersController {
 		// login인 데이터 db에서 가져옴
 		session.setAttribute("login", userService.login(usersVO));
 
-		// 당장 메인화면 없으니 일단 자유게시판 목록으로 보내겠음
-		return "redirect:/board/free/list";
+		return "redirect:/main/main";
 	}
 
 	/* 로그아웃 */
@@ -58,8 +56,7 @@ public class UsersController {
 
 		log.info("로그아웃 처리됨");
 
-		// 얘도 당장 메인화면 없으니 일단 자유게시판 목록으로 보내겠음
-		return "redirect:/board/free/list";
+		return "redirect:/main/main";
 	}
 
 	/* 회원가입 폼 이동 */
@@ -75,7 +72,6 @@ public class UsersController {
 		// DB에서 넘어오는 데이터로 처리할거임
 		userService.join(usersVO);
 		
-		// 얘는 로그인으로 보내고
-		return "redirect:/board/free/login";
+		return "redirect:/main/main";
 	}
 }
