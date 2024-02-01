@@ -29,19 +29,19 @@
 			<div id="checkId-result">알파벳과 숫자를 포함하여 4~20글자를 입력해주세요</div>
 			<br>
 
-			<!-- 비밀번호 / 비밀번호 확인 -->
+			<!-- 비밀번호 / 비밀번호 확인(얘네는 autocomplete="off" 꼭해야함 비밀번호라 보안상 필요함(콘솔에 떴음)-->
 			<!-- col 먹이려면 row로 먼저 감싸야하는듯 -->
 			<div class="row">
 				<div class="form-group col-6">
 					<label for="usersPw" class="subject">비밀번호</label> <input
 						type="password" name="usersPw" id="usersPw" class="form-control"
-						required="required" pattern=".{4,20}" placeholder="비밀번호 입력">
+						required="required" pattern=".{4,20}" placeholder="비밀번호 입력" autocomplete="off">
 				</div>
 				<br>
 				<div class="form-group col-6">
 					<label for="usersPw2" class="subject">비밀번호 확인</label> <input
 						type="password" name="usersPw2" id="usersPw2" class="form-control"
-						required="required" pattern=".{4,20}" placeholder="비밀번호 확인">
+						required="required" pattern=".{4,20}" placeholder="비밀번호 확인" autocomplete="off">
 				</div>
 			</div>
 			<div id="password-result">비밀번호는 숫자 4~20글자로 입력해주세요.</div>
@@ -57,12 +57,13 @@
 				</div>
 
 				<div class="form-group col-6">
-					<label for="usersGender" class="subject">성별</label>
+					<label class="subject">성별</label>
 					<div>
-						<label class="radio-inline"> <input type="radio"
-							name="usersGender" id="usersGender" checked value="남자">남자
-						</label> <label class="radio-inline"> <input type="radio"
-							name="usersGender" id="usersGender" value="여자">여자
+						<label for="male" class="radio-inline"> <input type="radio"
+							name="usersGender" id="male" checked value="남자">남자
+						</label> 
+						<label for="female"class="radio-inline"> <input type="radio"
+							name="usersGender" id="female" value="여자">여자
 						</label>
 					</div>
 				</div>
@@ -128,8 +129,15 @@
 		</form>
 	</div>
 
+	<!-- =============================== 구분선 =============================== -->
+	<!-- =============================== 구분선 =============================== -->
+	<!-- =============================== 구분선 =============================== -->
+	<!-- =============================== 구분선 =============================== -->
+	<!-- =============================== 구분선 =============================== -->
+	<!-- =============================== 구분선 =============================== -->
+
 	<!-- Daum 우편번호 서비스 스크립트 추가 -->
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 	<script>
 		// 우편번호 찾기 팝업 호출 함수
@@ -161,30 +169,44 @@
 
 				let checkId_result = $("#checkId-result");
 				console.log(usersId);
-				
+
 				$.ajax({
 					url : "/users/idCheck",
 					type : "post",
 					data : JSON.stringify(usersId),
 					dataType : "json",
-			        contentType : "application/json;charset=UTF-8",
-			        xhrFields: { //서버간 인증 쿠키를 주고 받으려면 true로 써야한다고함
-			            withCredentials: true
-			        },
+					contentType : "application/json;charset=UTF-8",
+					xhrFields : { //서버간 인증 쿠키를 주고 받으려면 true로 써야한다고함
+						withCredentials : true
+					},
 				}).done(function(rst) {
-				    console.log(rst);
-				    if(rst.rst === "ok"){
-				        checkId_result.css("color", "green").html(rst.msg);
-				        submitFlag = true;
-				    } else {
-				        checkId_result.css("color", "red").html(rst.msg);
-				        submitFlag = false;
-				    }
-				})
-				.fail(function(xhr) {
-				    console.log(xhr);
+					console.log(rst);
+					if (rst.rst === "ok") {
+						checkId_result.css("color", "green").html(rst.msg);
+						submitFlag = true;
+					} else {
+						checkId_result.css("color", "red").html(rst.msg);
+						submitFlag = false; // 서브밋플래그 false로 하면 폼 제출을 거부하는거임.
+					}
+				}).fail(function(xhr) {
+					console.log(xhr);
 				});
 			});
+		})
+		
+		// 이름 유효성 검증 (DB에서 값 가져오는건 아님)
+		$("#usersName").on("change", function(){
+			const regExp = /^[가-힣]{1,6}$/;
+			let usersNameValue = $(this).val();
+			let usersNameResult = $("#name-result");
+			
+			if(usersNameValue.match(regExp) === null){ // match() 메서드는 문자열이 정규식과 매치되는 부분을 검색함
+				usersNameResult.css("color", "red").html("자음/모음이 아닌 한글로 이루어진 2~6글자의 이름만 가능합니다.");
+				submitFlag = false;
+			} else {
+		        usersNameResult.css("color", "green").html("올바른 이름 형식입니다.");
+				submitFlag = true;
+			}
 		})
 	</script>
 </body>

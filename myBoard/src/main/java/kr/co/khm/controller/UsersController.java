@@ -83,7 +83,7 @@ public class UsersController {
 	
 	/* 회원 가입시 ID 중복체크 처리 */
 	@ResponseBody
-	@PostMapping("idCheck")
+	@PostMapping("/idCheck")
 	public Map<String, String> idCheck(@RequestBody UsersVO usersVO){
 		log.info("usersId : " + usersVO.getUsersId());
 		
