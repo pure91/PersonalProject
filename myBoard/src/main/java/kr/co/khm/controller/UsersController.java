@@ -1,12 +1,18 @@
 package kr.co.khm.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.khm.service.UsersService;
 import kr.co.khm.vo.UsersVO;
@@ -73,5 +79,36 @@ public class UsersController {
 		userService.join(usersVO);
 		
 		return "redirect:/main/main";
+	}
+	
+	/* 회원 가입시 ID 중복체크 처리 */
+	@ResponseBody
+	@PostMapping("idCheck")
+	public Map<String, String> idCheck(@RequestBody UsersVO usersVO){
+		log.info("usersId : " + usersVO.getUsersId());
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(!Pattern.matches("^[a-zA-Z0-9]*$", usersVO.getUsersId())) {
+			result.put("rst", "fail");
+			result.put("msg", "ID에 한글&특수문자 사용은 불가능 합니다.");
+			return result;
+		}
+		
+		if(!Pattern.matches("^(?=.*[0-9])[a-zA-Z0-9]{4,20}$", usersVO.getUsersId())) {
+			result.put("rst", "fail");
+			result.put("msg", "ID는 알파벳과 숫자를 포함하여 4~20글자 입니다.");
+			return result;
+		} else {
+			int cnt = userService.duplicateIdCheck(usersVO);
+			if(cnt > 0) {
+				result.put("rst", "fail");
+				result.put("msg", "이미 사용 중인 아이디입니다.");
+			} else {
+				result.put("rst", "ok");
+				result.put("msg", "사용 가능한 아이디입니다.");
+			}
+			return result;
+		}
 	}
 }

@@ -33,4 +33,13 @@ public class UsersServiceImpl implements UsersService {
 		return usersMapper.join(usersVO);
 	}
 
+	
+	/**
+	 * 회원 가입시 ID 중복체크
+	 */
+	@Override
+	public int duplicateIdCheck(UsersVO usersVO) {
+		return usersMapper.duplicateIdCheck(usersVO);
+	}
+
 }

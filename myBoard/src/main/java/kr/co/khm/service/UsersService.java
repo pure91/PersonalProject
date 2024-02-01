@@ -24,4 +24,12 @@ public interface UsersService {
 	 * @return
 	 */
 	public int join(UsersVO usersVO);
+
+
+	/**
+	 * 회원 가입시 ID 중복체크
+	 * @param usersVO
+	 * @return
+	 */
+	public int duplicateIdCheck(UsersVO usersVO);
 }

@@ -18,4 +18,9 @@
 		VALUES(#{usersId}, #{usersPw}, #{usersAuth}, #{usersEmail}, #{usersZip}, #{usersAddress}, #{usersAddress2}, #{usersGender})
 	</insert>
 	
+	<!-- 회원 가입시 ID 중복체크 -->
+	<select id="duplicateIdCheck" resultType="int">
+		select count(*) from USERS where USERS_ID = #{usersId}
+	</select>
+	
 </mapper>

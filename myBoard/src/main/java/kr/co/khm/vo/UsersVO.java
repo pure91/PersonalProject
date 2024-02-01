@@ -15,6 +15,7 @@ public class UsersVO {
 	private String usersAddress;    // 회원 기본주소
 	private String usersAddress2;   // 회원 상세주소
 	private String usersGender;		// 회원 성별
+	private String usersTel;		// 회원 연락처
 	
 	private String usersStatus;     // 나중에 DB에 추가할지 다시 보자.. 상태 등록해서 회원 탈퇴 관리해야될지
 
