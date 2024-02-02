@@ -4,9 +4,9 @@
 
 	<!-- 로그인처리 -->
 	<select id="login" resultType="usersVO">
-		select USERS_ID, USERS_PW, USERS_AUTH, USERS_NAME, USERS_EMAIL, USERS_ZIP, USERS_ADDRESS, USERS_ADDRESS2
+		select USERS_ID, USERS_PW, USERS_AUTH, USERS_NAME, USERS_EMAIL, USERS_ZIP, USERS_ADDRESS, USERS_ADDRESS2, USERS_GENDER, USERS_TEL
 		from USERS
-		where (USERS_ID = #{usersId} and USERS_PW = #{usersPw})
+		where USERS_ID = #{usersId} and USERS_PW = #{usersPw}
 	</select>
 	
 	<!-- 회원가입처리, 회원번호 null들어오면 0으로 인식하고 +1해서 계속 +1씩 번호 증가 -->

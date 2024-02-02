@@ -16,7 +16,6 @@ public interface UsersMapper {
 	 * @return
 	 */
 	public UsersVO login(UsersVO usersVO);
-
 	
 	/**
 	 * 회원 가입
@@ -32,4 +31,6 @@ public interface UsersMapper {
 	 * @return
 	 */
 	public int duplicateIdCheck(UsersVO usersVO);
+
+
 }

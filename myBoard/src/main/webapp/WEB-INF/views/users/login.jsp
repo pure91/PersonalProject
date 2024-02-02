@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,20 +19,22 @@
 		<form action="/users/login" method="post">
 			<div class="form-group">
 				<!-- 라벨for랑 인풋id 맞춰줘야함.. 자꾸 까먹네 -->
-				<label for="usersId" class="subject">아이디</label> <input type="text" name="usersId"
-					id="usersId" class="form-control" required>
+				<label for="usersId" class="subject">아이디</label> <input type="text"
+					name="usersId" id="usersId" class="form-control" required>
 			</div>
 			<br>
-			
+
 			<div class="form-group">
-				<label for="usersPw" class="subject">비밀번호</label> <input type="password"
-					name="usersPw" id="usersPw" class="form-control" required autocomplete="off">
+				<label for="usersPw" class="subject">비밀번호</label> <input
+					type="password" name="usersPw" id="usersPw" class="form-control"
+					required autocomplete="off">
 			</div>
+
+			<!-- 로그인 아이디/비밀번호 체크 -->
+			<div id="check-result" style="color: red;">${loginError}</div>
 			<br>
-			<div class="text-end">
-			<button type="submit" class="btn btn-outline-dark">로그인</button>
-			<button type="button" class="btn btn-outline-danger" onclick="history.back()">취소</button>
-			</div>
+			<button type="submit" class="btn btn-outline-dark"
+				style="width: -webkit-fill-available;">로그인</button>
 		</form>
 	</div>
 </body>

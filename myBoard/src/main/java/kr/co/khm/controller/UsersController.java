@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.velocity.texen.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,15 +44,25 @@ public class UsersController {
 
 	/* 로그인 처리 */
 	// usersVO라는 데이터가 필요하고, 로그인하려면 session이 필요함(이 세션에 담아놓으면 내가 원하는걸 달라고 할 수 있음)
+	
+	// 왜 실패메시지를 위해서 model을 쓰냐??
+	// 로그인은 일반적으로 redirect를 때리기 때문에 성공하면 세션에 담기니까 성공 메시지는 세션에서 볼수있는데
+	// 로그인에 실패하면 현재 view에서 에러 메시지를 보내줘야하니까 model을 사용함
 	@PostMapping("/login")
-	public String login(UsersVO usersVO, HttpSession session) {
-
+	public String login(UsersVO usersVO, HttpSession session, Model model) {
 		log.info("로그인 처리 -> usersVO : " + usersVO);
+		
+		// 로그인 결과 DB에서 데이터 가져오자
+		UsersVO loggedInUser = userService.login(usersVO);
+		log.info("로그인 결과 가져오기 -> loggedInUser : " + loggedInUser);
 
-		// login인 데이터 db에서 가져옴
-		session.setAttribute("login", userService.login(usersVO));
-
-		return "redirect:/main/main";
+		if (loggedInUser != null) {
+			session.setAttribute("login", loggedInUser);
+			return "redirect:/main/main";
+		} else {
+			model.addAttribute("loginError", "아이디 또는 비밀번호가 잘못되었습니다.");
+	        return "users/login"; // 로그인 실패 시 로그인 화면에 그대로 유지
+		}
 	}
 
 	/* 로그아웃 */
@@ -59,7 +70,9 @@ public class UsersController {
 	public String logout(HttpSession session) {
 
 		// 그냥 세션에서 속성 지우면 로그아웃 처리 되는거임
-		session.removeAttribute("login");
+		//	session.removeAttribute("login");
+		// 모든 속성을 다 지우려면 세션 무효화를 시켜야함
+		session.invalidate();
 
 		log.info("로그아웃 처리됨");
 
@@ -83,6 +96,8 @@ public class UsersController {
 	}
 	
 	/* 회원 가입시 ID 중복체크 처리 */
+	// 여기 Map쓴 이유는 중복체크하면서 아이디, 비밀번호, 이름 등 여러가지 추가적인 메시지를 줘야함
+	// login의 자료형이 String인 이유는 그냥 일반적으로 간단한 메시지 처리일땐 String을 쓴다고함.
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public Map<String, String> idCheck(@RequestBody UsersVO usersVO){
