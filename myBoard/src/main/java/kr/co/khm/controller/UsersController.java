@@ -37,7 +37,7 @@ public class UsersController {
 	/* 로그인 폼 이동 */
 	// jsp만 있으면 됨
 	@GetMapping("/login")
-	public String loginFrom() {
+	public String loginForm() {
 		log.info("login 폼으로 이동");
 		return "users/login";
 	}

@@ -35,9 +35,11 @@
 </head>
 <body>
 	<h2>자유게시판 목록</h2>
-	<form action="/board/freeInsert" method="post">
-		<button type="submit" class="btn btn-outline-secondary" id="addBoard">글쓰기</button>
-	</form>
+<!-- 	<form action="/board/freeInsert" method="post"> -->
+	<a href="/board/freeInsert">
+		<button type="button" class="btn btn-outline-secondary" id="addBoard">글쓰기</button>
+	</a>
+<!-- 	</form> -->
 	<table id="freeBoardTable">
 		<!-- 열의 제목(table) 일반적으로 thead는 th셀을 사용하고 -->
 		<thead>

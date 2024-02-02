@@ -35,15 +35,16 @@
 					<label for="usersPw" class="subject">비밀번호</label> <input
 						type="password" name="usersPw" id="usersPw" class="form-control"
 						required="required" placeholder="비밀번호 입력" autocomplete="off">
+					<div id="password-result">영문, 숫자, 특수문자 중 2가지 이상을 조합하고, 8자리 이상을 입력해주세요</div>
 				</div>
 				<br>
 				<div class="form-group col-6">
 					<label for="usersPw2" class="subject">비밀번호 확인</label> <input
 						type="password" name="usersPw2" id="usersPw2" class="form-control"
 						required="required" placeholder="비밀번호 확인" autocomplete="off">
+					<div id="password-result2"></div>
 				</div>
 			</div>
-			<div id="password-result">영문, 숫자, 특수문자 중 2가지 이상을 조합하고, 8자리 이상을 입력해주세요</div>
 			<br>
 
 			<!-- 이름/성별 -->
@@ -217,15 +218,15 @@
 				$("#password-result").css("color", "red").html("영문, 숫자, 특수문자 중 2가지 이상 조합하여 8자리 이상");
 				submitFlag = false;
 			} else {
-				$("#password-result").css("color", "red").html("");
+				$("#password-result").css("color", "green").html("사용 가능한 비밀번호입니다.");
 			}
 		});
 		$("#usersPw2").on("input", function(){
 			if($(this).val() !== $("#usersPw").val()){
-				$("#password-result").css("color", "red").html("비밀번호가 일치하지 않습니다.");
+				$("#password-result2").css("color", "red").html("비밀번호가 일치하지 않습니다.");
 				submitFlag = false;
 			} else {
-				$("#password-result").css("color", "green").html("비밀번호가 일치합니다.");
+				$("#password-result2").css("color", "green").html("비밀번호가 일치합니다.");
 				submitFlag = true;
 			}
 		});
