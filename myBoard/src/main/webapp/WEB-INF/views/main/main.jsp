@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <title>Main</title>
 </head>
 <body>

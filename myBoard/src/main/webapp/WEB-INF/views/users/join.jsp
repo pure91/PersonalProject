@@ -77,9 +77,9 @@
 						placeholder="이메일 입력">
 				</div>
 				<div class="form-group col-6">
-					<label for="usersTel" class="subject">연락처</label> <input
+					<label for="usersTel" class="subject">연락처</label> <input type="tel"
 						name="usersTel" id="usersTel" class="form-control"
-						placeholder="연락처 입력">
+						placeholder="연락처 입력(- 제외)">
 				</div>
 			</div>
 			<br>
@@ -121,7 +121,7 @@
 			<hr>
 			<!-- 가입하기 버튼 생성 -->
 			<div class="text-end">
-				<button type="button" class="btn btn-outline-primary" id="join-btn">가입하기</button>
+				<button type="submit" class="btn btn-outline-primary" id="join-btn">가입하기</button>
 				<button type="button" class="btn btn-outline-danger" id="joinCancle"
 					onclick="history.back()">취소</button>
 			</div>

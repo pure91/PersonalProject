@@ -9,18 +9,20 @@
 		where (USERS_ID = #{usersId} and USERS_PW = #{usersPw})
 	</select>
 	
-	<!-- 회원가입처리 -->
+	<!-- 회원가입처리, 회원번호 null들어오면 0으로 인식하고 +1해서 계속 +1씩 번호 증가 -->
 	<insert id="join" parameterType="usersVO">
-		<selectKey resultType="string" order="BEFORE" keyProperty="USERS_ID">
-			SELECT MAX(USERS_ID)+1 FROM USERS
+		<selectKey resultType="int" order="BEFORE" keyProperty="usersNo">
+   		 	SELECT COALESCE(MAX(USERS_NO), 0) + 1 FROM USERS
 		</selectKey>
-		insert into USERS(USERS_ID, USERS_PW, USERS_AUTH, USERS_NAME, USERS_EMAIL, USERS_ZIP, USERS_ADDRESS, USERS_ADDRESS2, USERS_GENDER)
-		VALUES(#{usersId}, #{usersPw}, #{usersAuth}, #{usersEmail}, #{usersZip}, #{usersAddress}, #{usersAddress2}, #{usersGender})
+		insert into USERS(USERS_NO, USERS_ID, USERS_PW, USERS_AUTH, USERS_NAME, USERS_EMAIL, USERS_ZIP, USERS_ADDRESS, USERS_ADDRESS2, USERS_GENDER, USERS_TEL)
+		VALUES(#{usersNo}, #{usersId}, #{usersPw}, 'Y', #{usersName}, #{usersEmail}, #{usersZip}, #{usersAddress}, #{usersAddress2}, #{usersGender}, #{usersTel})
 	</insert>
+	
 	
 	<!-- 회원 가입시 ID 중복체크 -->
 	<select id="duplicateIdCheck" resultType="int">
-		select count(*) from USERS where USERS_ID = #{usersId}
+		select count(*) from USERS
+		where USERS_ID = #{usersId}
 	</select>
 	
 </mapper>

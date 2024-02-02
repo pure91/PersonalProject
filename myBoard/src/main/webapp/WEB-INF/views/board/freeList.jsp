@@ -31,7 +31,6 @@
 	}
 </style>
 
-<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <title>자유게시판</title>
 </head>
 <body>

@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class UsersVO {
+	private int usersNo;			// 회원 고유번호
 	private String usersId;         // 회원 ID
 	private String usersPw;         // 회원 비밀번호
 	private String usersAuth;       // 회원 권한(Y 일반회원, N 관리자)

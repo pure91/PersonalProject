@@ -8,7 +8,6 @@
 	font-weight: bold;
 }
 </style>
-<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <title>로그인 폼</title>
 </head>
 
@@ -26,7 +25,7 @@
 			
 			<div class="form-group">
 				<label for="usersPw" class="subject">비밀번호</label> <input type="password"
-					name="usersPw" id="usersPw" class="form-control" required>
+					name="usersPw" id="usersPw" class="form-control" required autocomplete="off">
 			</div>
 			<br>
 			<div class="text-end">
