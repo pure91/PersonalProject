@@ -21,8 +21,7 @@
 				<!-- input-group덕에 버튼이 옆에 붙는듯 -->
 				<div class="input-group">
 					<input name="usersId" id="usersId" class="form-control"
-						required="required" pattern="[A-Za-z0-9]{4,20}"
-						placeholder="아이디 입력">
+						required="required" placeholder="아이디 입력">
 					<button type="button" class="btn btn-secondary" id="checkMemId">중복확인</button>
 				</div>
 			</div>
@@ -35,16 +34,16 @@
 				<div class="form-group col-6">
 					<label for="usersPw" class="subject">비밀번호</label> <input
 						type="password" name="usersPw" id="usersPw" class="form-control"
-						required="required" pattern=".{4,20}" placeholder="비밀번호 입력" autocomplete="off">
+						required="required" placeholder="비밀번호 입력" autocomplete="off">
 				</div>
 				<br>
 				<div class="form-group col-6">
 					<label for="usersPw2" class="subject">비밀번호 확인</label> <input
 						type="password" name="usersPw2" id="usersPw2" class="form-control"
-						required="required" pattern=".{4,20}" placeholder="비밀번호 확인" autocomplete="off">
+						required="required" placeholder="비밀번호 확인" autocomplete="off">
 				</div>
 			</div>
-			<div id="password-result">비밀번호는 숫자 4~20글자로 입력해주세요.</div>
+			<div id="password-result">영문, 숫자, 특수문자 중 2가지 이상을 조합하고, 8자리 이상을 입력해주세요</div>
 			<br>
 
 			<!-- 이름/성별 -->
@@ -52,8 +51,8 @@
 				<div class="form-group col-6">
 					<label for="usersName" class="subject">이름</label> <input
 						name="usersName" id="usersName" class="form-control"
-						required="required" pattern="[가-힣]{2,10}" placeholder="이름 입력">
-					<div id="name-result">이름은 한글 2~10글자로 입력해주세요.</div>
+						required="required" placeholder="이름 입력">
+					<div id="name-result">이름은 한글 2~6글자로 입력해주세요.</div>
 				</div>
 
 				<div class="form-group col-6">
@@ -154,8 +153,9 @@
 		}
 	</script>
 
-	<!-- 아이디 중복검사, 유효성 처리 -->
+	<!-- 유효성 처리 -->
 	<script>
+		// 아이디 유효성 + 중복체크
 		$(function() {
 			// 사용자가 화면에서 인풋값에 입력하는 아이디가 usersIdValue에 담김
 			let usersIdValue = $("#usersId");
@@ -196,7 +196,7 @@
 		
 		// 이름 유효성 검증 (DB에서 값 가져오는건 아님)
 		$("#usersName").on("change", function(){
-			const regExp = /^[가-힣]{1,6}$/;
+			const regExp = /^[가-힣]{2,6}$/;
 			let usersNameValue = $(this).val();
 			let usersNameResult = $("#name-result");
 			
@@ -208,6 +208,26 @@
 				submitFlag = true;
 			}
 		})
+		
+		// 비밀번호 유효성 검증(역시 DB에서 값 가져올건 아님)
+		$("#usersPw").on("input", function(){ // 사용자가 패스워드 인풋에 값을 입력하면
+			const regExp = /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,20}$/;
+			if ($("#usersPw").val().match(regExp) === null){
+				$("#password-result").css("color", "red").html("영문, 숫자, 특수문자 중 2가지 이상 조합하여 8자리 이상");
+				submitFlag = false;
+			} else {
+				$("#password-result").css("color", "red").html("");
+			}
+		});
+		$("#usersPw2").on("input", function(){
+			if($(this).val() !== $("#usersPw").val()){
+				$("#password-result").css("color", "red").html("비밀번호가 일치하지 않습니다.");
+				submitFlag = false;
+			} else {
+				$("#password-result").css("color", "green").html("비밀번호가 일치합니다.");
+				submitFlag = true;
+			}
+		});
 	</script>
 </body>
 </html>
