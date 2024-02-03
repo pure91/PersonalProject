@@ -4,14 +4,35 @@
 
 	<!-- 자유게시판 조회 -->
 	<select id="listFreeBoard" resultType="boardVO">
-		select FREE_SEQ, FREE_TITLE, USERS_NAME, FREE_WRT_DATE, FREE_CNT
-		from FREE
+		select * from FREE
 		order by FREE_SEQ DESC
 	</select>
 	
 	<!-- 자유게시판 글 등록 -->
-	<insert id="insertFreeBoard">
-		insert into FREE (FREE_SEQ, USERS_ID, USERS_NAME, FREE_TITLE, FREE_CONTENTS, FREE_WRT_DATE, FREE_MDF_DATE, FILES_SEQ)
-		values(FREE_SEQ.nextval, #{usersId}, #{usersName}, #{freeTitle}, #{freeContents}, SYSDATE, SYSDATE, #{filesSeq})
+	<insert id="insertFreeBoard" parameterType="boardVO">
+		insert into FREE (FREE_SEQ, USERS_ID, USERS_NAME, FREE_TITLE, FREE_CONTENTS)
+		values(FREE_SEQ.nextval, #{usersId}, #{usersName}, #{freeTitle}, #{freeContents})
 	</insert>
+	
+	<!-- 자유게시판 디테일 -->
+	<select id="freeDetail" parameterType="int" resultType="boardVO">
+		select * from FREE where FREE_SEQ = #{freeSeq}
+	</select>
+	
+	<!-- 자유게시판 조회수 -->
+	<update id="updateCnt" parameterType="int">
+		update FREE set FREE_CNT = FREE_CNT + 1
+		where FREE_SEQ = #{freeSeq}
+	</update>
+	
+	<!-- 자유게시판 글 삭제 -->
+	<delete id="delete">
+		delete from FREE where FREE_SEQ = #{freeSeq}
+	</delete>
+	
+	<!-- 자유게시판 글 수정 -->
+	<update id="update" parameterType="boardVO">
+		update FREE set FREE_TITLE = #{freeTitle}, FREE_CONTENTS = #{freeContents}
+		where FREE_SEQ = #{freeSeq}
+	</update>
 </mapper>

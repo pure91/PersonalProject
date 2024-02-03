@@ -12,7 +12,6 @@ import kr.co.khm.vo.BoardVO;
 
 public interface BoardMapper {
 
-	
 	/**
 	 * 자유게시판 조회
 	 */
@@ -24,5 +23,31 @@ public interface BoardMapper {
 	 * @return
 	 */
 	public int insertFreeBoard(BoardVO boardVO);
+
+	/**
+	 * 자유게시판 디테일
+	 * @param freeSeq
+	 * @return
+	 */
+	public BoardVO freeDetail(int freeSeq);
+
+	/**
+	 * 자유게시판 조회수
+	 * @param freeSeq
+	 * @return
+	 */
+	public void updateCnt(int freeSeq);
+
+	/**
+	 * 자유게시판 글 삭제
+	 * @param freeSeq
+	 */
+	public void delete(int freeSeq);
+
+	/** 
+	 * 자유게시판 글 수정
+	 * @param boardVO
+	 */
+	public void update(BoardVO boardVO);
 
 }

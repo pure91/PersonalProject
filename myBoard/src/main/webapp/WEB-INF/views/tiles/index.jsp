@@ -9,6 +9,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 아이콘 추가 -->
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
 <title>Personal Project</title>
 </head>
 <body>

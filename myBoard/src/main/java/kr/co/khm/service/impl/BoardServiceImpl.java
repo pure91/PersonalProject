@@ -36,4 +36,38 @@ public class BoardServiceImpl implements BoardService{
 		return boardMapper.insertFreeBoard(boardVO);
 	}
 
+	/**
+	 * 자유게시판 디테일
+	 */
+	@Override
+	public BoardVO freeDetail(int freeSeq) {
+		return boardMapper.freeDetail(freeSeq);
+	}
+
+	
+	/**
+	 * 자유게시판 조회수
+	 */
+	@Override
+	public void updateCnt(int freeSeq) {
+		boardMapper.updateCnt(freeSeq);
+	}
+
+	
+	/**
+	 * 자유게시판 글 삭제
+	 */
+	@Override
+	public void delete(int freeSeq) {
+		boardMapper.delete(freeSeq);
+	}
+
+	/**
+	 * 자유게시판 글 수정
+	 */
+	@Override
+	public void update(BoardVO boardVO) {
+		boardMapper.update(boardVO);
+	}
+
 }
