@@ -1,6 +1,8 @@
 package kr.co.khm.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.khm.service.BoardService;
+import kr.co.khm.util.ArticlePage;
 import kr.co.khm.vo.BoardVO;
 import kr.co.khm.vo.UsersVO;
 import lombok.extern.slf4j.Slf4j;
@@ -33,10 +36,38 @@ public class BoardController {
 	
 	/* 자유게시판 목록 조회 */
 	@GetMapping("/freeList")
-	public String listFreeBoard(Model model) {
+	public String listFreeBoard(Model model,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+			@RequestParam(value = "searchType", required = false) String searchType) {
+			//키워드는 나중에 util 폴더 만들어서 articlepage랑 paginghandler만들기
+			log.info("currentPage: " + currentPage);
+			log.info("keyword", keyword);
+			log.info("list->searchType : " + keyword);
 		
-		List<BoardVO> freeBoardList = this.boardService.listFreeBoard();
+		// 현재 페이지랑, 키워드(검색용)도 넣어줄꺼라 map으로 생성하는게 편할듯
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("currentPage", currentPage);
+		map.put("keyword", keyword);
+		map.put("searchType",searchType);
+		log.info("freeList - >map : " + map);
+		
+		// 위에서 페이지 담아서 리스트 조회하기
+		List<BoardVO> freeBoardList = this.boardService.listFreeBoard(map);
 		log.info("freeBoardList : " + freeBoardList);
+		
+		// 전체 글 수 가져오기
+		int total = boardService.getTotal(map);
+		log.info("listFreeBoard -> total : " + total);
+		
+		// 페이지네이션 Util 메서드
+		ArticlePage<BoardVO> articlePage = new ArticlePage<BoardVO>(total, currentPage, 10, freeBoardList);
+		
+		articlePage.setUrl("/board/free/freeList");
+		articlePage.setKeyword(keyword);
+		articlePage.setSearchType(searchType);
+		
+		model.addAttribute("articlePage", articlePage);
 		model.addAttribute("freeBoardList", freeBoardList);
 		
 		return "board/freeList";
@@ -112,4 +143,12 @@ public class BoardController {
 		boardService.delete(freeSeq);
 		return "redirect:/board/freeList";
 	}
+	
+	/* 페이징 임시(2024.02.04) */
+	// 첫페이지는 1페이지를 보여줌
+//	@GetMapping("/paging")
+//	public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+//		log.info("page : " + page);
+//		return "board/freeList";
+//	}
 }

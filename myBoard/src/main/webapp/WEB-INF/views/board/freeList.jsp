@@ -42,14 +42,29 @@
 </head>
 <body>
 	<h2>자유게시판 목록</h2>
-	<!-- 	<form action="/board/freeInsert" method="post"> -->
+	<fieldset>
+		<div class="search-board-wrap">
+			<form>
+				<span class="search-board-select select"> <select
+					name="searchType" id="searchType" title="검색 범위">
+						<option value="title" selected="">제목</option>
+						<option value="content">내용</option>
+				</select>
+				</span> <span class="search-board-input input"> <input type="text"
+					name="keyword" id="keyword" placeholder="검색어 입력" title="검색어 입력" />
+					<button type="submit" class="button-search">검색</button>
+				</span>
+			</form>
+		</div>
+	</fieldset>
+	
 	<a href="/board/freeInsert">
 		<button type="button" class="btn btn-outline-secondary" id="addBoard">
 			<box-icon name='edit'></box-icon>
 			글쓰기
 		</button>
 	</a>
-	<!-- 	</form> -->
+	
 	<table id="freeBoardTable">
 		<!-- 열의 제목(table) 일반적으로 thead는 th셀을 사용하고 -->
 		<thead>
@@ -68,7 +83,8 @@
 				<tr>
 					<td class="freeBoardTd">${list.freeSeq}</td>
 					<td class="freeBoardTd"><a
-						href="/board/freeDetail?freeSeq=${list.freeSeq}"> ${list.freeTitle} </a></td>
+						href="/board/freeDetail?freeSeq=${list.freeSeq}">
+							${list.freeTitle} </a></td>
 					<td class="freeBoardTd">${list.usersName}</td>
 					<td class="freeBoardTd"><fmt:formatDate
 							value="${list.freeWrtDate}" pattern="yyyy-MM-dd" /></td>
@@ -77,5 +93,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<br>
+	${articlePage.getPagingArea()}
 </body>
 </html>

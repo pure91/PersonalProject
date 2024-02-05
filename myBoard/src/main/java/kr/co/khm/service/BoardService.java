@@ -1,6 +1,7 @@
 package kr.co.khm.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.khm.vo.BoardVO;
 
@@ -16,7 +17,7 @@ public interface BoardService {
 	/**
 	 * 자유게시판 조회
 	 */
-	public List<BoardVO> listFreeBoard();
+	public List<BoardVO> listFreeBoard(Map<String, Object> map);
 
 	
 	/**
@@ -55,5 +56,13 @@ public interface BoardService {
 	 * @param boardVO
 	 */
 	public void update(BoardVO boardVO);
+
+
+	/**
+	 * 자유게시판 전체 글 수 가져오기(페이징 처리)
+	 * @param map
+	 * @return
+	 */
+	public int getTotal(Map<String, Object> map);
 
 }

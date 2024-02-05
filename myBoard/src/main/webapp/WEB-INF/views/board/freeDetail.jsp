@@ -34,9 +34,9 @@
 			<td>${board.freeCnt}
 		</tr>
 	</table>
-	<button onclick="listFn()">목록</button>
-	<button onclick="updateFn()">수정</button>
-	<button onclick="deleteFn()">삭제</button>
+	<button class="btn btn-outline-dark" onclick="listFn()">목록</button>
+	<button class="btn btn-outline-success" onclick="updateFn()">수정</button>
+	<button class="btn btn-outline-warning" onclick="deleteFn()">삭제</button>
 </body>
 
 	<script>

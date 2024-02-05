@@ -1,6 +1,7 @@
 package kr.co.khm.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ public class BoardServiceImpl implements BoardService{
 	 * 자유게시판 조회
 	 */
 	@Override
-	public List<BoardVO> listFreeBoard() {
-		return boardMapper.listFreeBoard();
+	public List<BoardVO> listFreeBoard(Map<String, Object> map) {
+		return boardMapper.listFreeBoard(map);
 	}
 
 	/**
@@ -68,6 +69,15 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void update(BoardVO boardVO) {
 		boardMapper.update(boardVO);
+	}
+
+	
+	/**
+	 * 자유게시판 전체 글 수 가져오기(페이징 처리)
+	 */
+	@Override
+	public int getTotal(Map<String, Object> map) {
+		return boardMapper.getTotal(map);
 	}
 
 }
