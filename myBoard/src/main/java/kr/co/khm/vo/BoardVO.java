@@ -14,7 +14,7 @@ import lombok.Data;
  */
 
 @Data
-public class BoardVO {
+public class BoardVO extends FilesVO{
 	private int freeSeq;         // 게시글 번호
 	private String usersId;      // 회원 ID
 	private String usersName;    // 작성자

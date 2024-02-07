@@ -68,14 +68,14 @@ public class ArticlePage<T> {
 		pagingArea +="<div class='col-sm-12 col-md-7'>";
 		pagingArea +="<div class='dataTables_paginate paging_simple_numbers' id='dataTable_paginate'>";
 		pagingArea +="<ul class='pagination'>";
-		pagingArea +="<li class='paginate_button page-item previous";
+		pagingArea +="<li class='paginate_button page-item previous ";
 		if(this.startPage<6) {
 			pagingArea += "disabled"; // 현재 페이지가 6보다 작으면 다음페이지 없는걸로 비활성화
 		}
 		
 		pagingArea +="' id='dataTable_previous'>";
 		pagingArea +="<a href='"+this.url+"?searchType="+this.searchType+"&keyword="+this.keyword+"&currentPage="+(this.startPage-5)+"'";
-		pagingArea +="aria-contorls='dataTable' data-dt-idx='0' tabindex='0'";
+		pagingArea +="aria-controls='dataTable' data-dt-idx='0' tabindex='0' ";
 		pagingArea +="class='page-link'>Previous</a></li>";
 		
 		for(int pNo=this.startPage; pNo<=this.endPage; pNo++) {
@@ -93,8 +93,8 @@ public class ArticlePage<T> {
 			if(this.endPage >= this.totalPage) {
 				pagingArea +="disabled"; // 종료 페이지가 전체 페이지랑 같거니 더 크면 비활성화
 			}
-		pagingArea +="' id='dataTable_next'><a href='"+this.url+"?searchType="+this.searchType+"&keyword="+this.keyword+"&currentPage="+(this.startPage+5)+"'";
-		pagingArea +="aria-controls='dataTable' data-dt-idx='7' tabindex='0'";
+		pagingArea +="' id='dataTable_next'><a href='"+this.url+"?searchType="+this.searchType+"&keyword="+this.keyword+"&currentPage="+(this.startPage+5)+"' ";
+		pagingArea +="aria-controls='dataTable' data-dt-idx='7' tabindex='0' ";
 		pagingArea +="class='page-link'>Next</a></li></ul></div></div>";
 		
 		return pagingArea;

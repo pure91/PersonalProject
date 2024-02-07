@@ -63,7 +63,7 @@ public class BoardController {
 		// 페이지네이션 Util 메서드
 		ArticlePage<BoardVO> articlePage = new ArticlePage<BoardVO>(total, currentPage, 10, freeBoardList);
 		
-		articlePage.setUrl("/board/free/freeList");
+		articlePage.setUrl("/board/freeList");
 		articlePage.setKeyword(keyword);
 		articlePage.setSearchType(searchType);
 		

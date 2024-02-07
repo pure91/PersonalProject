@@ -14,6 +14,7 @@
 	<typeAliases>
 		<typeAlias type="kr.co.khm.vo.BoardVO" alias="boardVO"/>
 		<typeAlias type="kr.co.khm.vo.UsersVO" alias="usersVO"/>
+		<typeAlias type="kr.co.khm.vo.FilesVO" alias="filesVO"/>
 	</typeAliases>
 
 </configuration>

@@ -3,9 +3,26 @@
 <mapper namespace="kr.co.khm.mapper.BoardMapper">
 
 	<!-- 자유게시판 조회 -->
-	<select id="listFreeBoard" resultType="boardVO">
-		select * from FREE
-		order by FREE_SEQ DESC
+	<select id="listFreeBoard" parameterType="hashMap" resultType="boardVO">
+		select A.*
+		FROM
+		(
+			SELECT ROW_NUMBER() OVER(ORDER BY FREE_SEQ DESC) RNUM, F.*
+			FROM
+			(
+				SELECT FREE_SEQ, FREE_TITLE, FREE_CONTENTS, USERS_NAME, FREE_WRT_DATE, FREE_CNT
+				FROM FREE
+				WHERE 1 = 1
+				<if test="searchType=='title'">
+					AND FREE_TITLE LIKE '%' || #{keyword} || '%'
+				</if>
+				<if test="searchType=='content'">
+					AND FREE_CONTENTS LIKE '%' || #{keyword} || '%'
+				</if>
+				ORDER BY FREE_SEQ DESC
+			) F
+		) A
+		WHERE A.RNUM BETWEEN (#{currentPage} * 10) - (10 - 1) AND (#{currentPage} * 10)
 	</select>
 	
 	<!-- 자유게시판 글 등록 -->
@@ -40,19 +57,19 @@
 	<select id="getTotal" parameterType="hashMap" resultType="int">
 		SELECT COUNT(*)
 		FROM (
-			SELECT ROWNUM AS R, B.*
+			SELECT ROWNUM AS R, F.*
 			FROM
 				(SELECT FREE_SEQ, FREE_TITLE, FREE_CONTENTS, USERS_NAME, FREE_WRT_DATE
 				FROM FREE
 				WHERE 1 = 1
 				<if test="searchType=='title'">
-				AND FREE_TITLE LIKE '%' || #{keyword} || '%'
+					AND FREE_TITLE LIKE '%' || #{keyword} || '%'
 				</if>
 				<if test="searchType=='content'">
-				AND FREE_CONTENTS LIKE '%' || #{keyword} || '%'
+					AND FREE_CONTENTS LIKE '%' || #{keyword} || '%'
 				</if>
 				ORDER BY FREE_SEQ DESC
-				) B
+				) F
 			 )
 	</select>
 </mapper>
