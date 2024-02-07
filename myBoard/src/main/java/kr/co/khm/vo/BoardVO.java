@@ -2,7 +2,6 @@ package kr.co.khm.vo;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -28,11 +27,12 @@ public class BoardVO extends FilesVO{
 	private Date freeWrtDate;    // 작성일자
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date freeMdfDate;    // 수정일자
+	
 //	private int filesSeq;        // 파일번호
 	
-	// 사용자가 올린 사진을 저장하는 변수
+	// 사용자가 올린 사진을 저장하는 변수(파일 객체 가져오는놈)
 	// jsp에서 name명이랑 맞출거임 무조건 post고 멀티파트 폼데이터해야함
-	private MultipartFile filesSeq;
+	private MultipartFile[] uploadFile;
 	
 	// 페이지네이션을 위한 VO 생성(2024.02.04, 오후 1시 시작)
 	private int rnum;					// 순번
