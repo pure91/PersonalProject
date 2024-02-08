@@ -74,6 +74,7 @@
 				<th class="freeBoardTh">작성자</th>
 				<th class="freeBoardTh">작성일자</th>
 				<th class="freeBoardTh">조회수</th>
+				<th class="freeBoardTh">파일첨부</th>
 			</tr>
 		</thead>
 		<!-- 행의 데이터(tbody) tbody는 td셀을 사용한다.-->
@@ -89,6 +90,17 @@
 					<td class="freeBoardTd"><fmt:formatDate
 							value="${list.freeWrtDate}" pattern="yyyy-MM-dd" /></td>
 					<td class="freeBoardTd">${list.freeCnt}</td>
+					<!-- 파일 첨부 여부에 따라 아이콘으로 표시해보자 -->
+					<td class="freeBoardTd">
+						<c:choose>
+							<c:when test="${list.filesSeq != null && list.filesSeq > 0}">
+								<box-icon name="file"></box-icon>
+							</c:when>
+							<c:otherwise>
+								Not file
+							</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

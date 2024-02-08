@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.khm.mapper.FilesMapper">
+
+	<!-- 파일 insert 전 파일번호 증가 -->
+	<select id="getFilesSeq" resultType="int">
+		select FILES_SEQ.nextval
+		from DUAL
+	</select>
+
+	<!-- 파일 업로드 -->
+	<insert id="insertFiles" parameterType="filesVO">
+		<selectKey resultType="int" order="BEFORE" keyProperty="filesNo">
+			select nvl(max(files_no),0)+1
+			from FILES
+			where FILES_SEQ = #{filesSeq}
+		</selectKey>
+		INSERT INTO FILES
+			(FILES_SEQ, FILES_NO, FILES_ORGNL_NAME, FILES_STRG_NAME, 
+			FILES_UPLOAD_DATE, FILES_EXTN, FILES_SIZE, FILES_STRG_PATH)
+		VALUES
+			(#{filesSeq}, #{filesNo}, #{filesOrgnlName}, #{filesStrgName},
+			sysdate, #{filesExtn}, #{filesSize}, #{filesStrgPath})
+	</insert>
+
+</mapper>
+
+

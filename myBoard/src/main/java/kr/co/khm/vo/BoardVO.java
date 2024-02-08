@@ -20,6 +20,8 @@ public class BoardVO extends FilesVO{
 	private int freeCnt;         // 게시글 조회수
 	private Date freeWrtDate;    // 작성일자
 	private Date freeMdfDate;    // 수정일자
+	private int filesSeq;		 // 파일 번호
+
 	
 	// 페이지네이션을 위한 VO 생성(2024.02.04, 오후 1시 시작)
 	private int rnum;					// 순번
