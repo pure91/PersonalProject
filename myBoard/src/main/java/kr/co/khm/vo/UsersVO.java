@@ -1,11 +1,9 @@
 package kr.co.khm.vo;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
 
 @Data
-public class UsersVO {
+public class UsersVO extends FilesVO{
 	private int usersNo;			// 회원 고유번호
 	private String usersId;         // 회원 ID
 	private String usersPw;         // 회원 비밀번호
@@ -19,8 +17,4 @@ public class UsersVO {
 	private String usersTel;		// 회원 연락처
 	
 	private String usersStatus;     // 나중에 DB에 추가할지 다시 보자.. 상태 등록해서 회원 탈퇴 관리해야될지
-
-	// 사용자가 올린 사진을 저장하는 변수
-	// jsp에서 name명이랑 맞출거임 무조건 post고 멀티파트 폼데이터해야함
-	private MultipartFile filesSeq;
 }

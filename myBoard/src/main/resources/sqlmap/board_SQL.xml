@@ -27,8 +27,8 @@
 	
 	<!-- 자유게시판 글 등록 -->
 	<insert id="insertFreeBoard" parameterType="boardVO">
-		insert into FREE (FREE_SEQ, USERS_ID, USERS_NAME, FREE_TITLE, FREE_CONTENTS)
-		values(FREE_SEQ.nextval, #{usersId}, #{usersName}, #{freeTitle}, #{freeContents})
+		insert into FREE (FREE_SEQ, USERS_ID, USERS_NAME, FREE_TITLE, FREE_CONTENTS, FILES_SEQ)
+		values(FREE_SEQ.nextval, #{usersId}, #{usersName}, #{freeTitle}, #{freeContents}, #{filesSeq})
 	</insert>
 	
 	<!-- 자유게시판 디테일 -->

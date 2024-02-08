@@ -10,7 +10,7 @@
 <body>
 	<h2>자유게시판 게시글 등록</h2>
 	<br>
-	<form action="/board/freeInsert" method="post">
+	<form action="/board/freeInsert" method="post" enctype="multipart/form-data">
 		<!-- 제목 -->
 		<label for="title">제목 : </label>
 		<input type="text" id="freeTitle" name="freeTitle" placeholder="제목을 입력하세요" required>
@@ -29,8 +29,14 @@
 		<input type="hidden" id="usersId" value="${usersId}"/>
 		
 		<!-- 파일 첨부 -->
-<!-- 		<label for="file">파일 첨부 : </label> -->
-<!-- 		<input type="file" id="file" name="file"> -->
+		<!-- 이 인풋태그의 name속성이 서버로 파일을 전송할때 식별자로 쓰이는데
+		컨트롤러서 내가 매개변수를 	
+		public List<FilesVO> uploadFile(MultipartFile[] uploadFile, String folder){
+		이렇게 줬으니까 name값 맞춰주면 좋음 -->
+		<!-- label for는 id값이랑만 맞춰주면 연결됨 -->
+		<!-- multiple써줘야 한번에 1장말고 여러장 넣을수있음 -->
+		<label for="file">파일 첨부 : </label>
+		<input type="file" id="file" name="uploadFile" multiple>
 		<br>
 		
 		<!-- 등록 버튼 -->
