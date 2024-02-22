@@ -36,7 +36,6 @@ public class FilesController {
 	FilesService filesService;
 
 	// 파일 업로드
-	// 파일 객체, 기본키 데이터?
 	public List<FilesVO> uploadFile(MultipartFile[] uploadFile, String folder){
 		
 		List<FilesVO> filesVOList = filesService.uploadFile(uploadFile, folder);

@@ -1,5 +1,6 @@
 package kr.co.khm.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -52,12 +53,10 @@ public class BoardServiceImpl implements BoardService{
 		// "freeBoard"자리 매개변수가 원래 folder인데 업로드된 파일들이 저장될 폴더를 지정하는 변순데
 		//  그 폴더명 분류를 freeBoard로 하고자 저렇게 넣었음
 		
-		
 		boardVO.setFilesSeq(filesVOList.get(0).getFilesSeq());
 		log.info("filesVOList -> setFilesSeq" + filesVOList.get(0).getFilesSeq());
 		// 반환된 FilesVOList에서 첫번째 파일의 파일Seq 값을 가져와서
 		// 게시글 객체인 boardVO의 filesSeq에 똑같이 세팅해준다.
-		// 만약 여러장 넣으려면 get(0)빼고 그냥 세팅자체를 setFilesSeqlist에(filesVOList)하면될듯..?
 		
 		return boardMapper.insertFreeBoard(boardVO);
 	}
@@ -66,7 +65,7 @@ public class BoardServiceImpl implements BoardService{
 	 * 자유게시판 디테일
 	 */
 	@Override
-	public BoardVO freeDetail(int freeSeq) {
+	public List<BoardVO> freeDetail(int freeSeq) {
 		return boardMapper.freeDetail(freeSeq);
 	}
 

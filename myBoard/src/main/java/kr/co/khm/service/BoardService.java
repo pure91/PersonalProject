@@ -33,7 +33,7 @@ public interface BoardService {
 	 * @param freeSeq
 	 * @return
 	 */
-	public BoardVO freeDetail(int freeSeq);
+	public List<BoardVO> freeDetail(int freeSeq);
 
 
 	/**

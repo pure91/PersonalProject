@@ -43,14 +43,14 @@ public class BoardController {
 			//키워드는 나중에 util 폴더 만들어서 articlepage랑 paginghandler만들기
 			log.info("currentPage: " + currentPage);
 			log.info("keyword", keyword);
-			log.info("list->searchType : " + keyword);
+			log.info("list -> searchType : " + keyword);
 		
 		// 현재 페이지랑, 키워드(검색용)도 넣어줄꺼라 map으로 생성하는게 편할듯
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("currentPage", currentPage);
 		map.put("keyword", keyword);
 		map.put("searchType",searchType);
-		log.info("freeList - >map : " + map);
+		log.info("freeList - > map : " + map);
 		
 		// 위에서 페이지 담아서 리스트 조회하기
 		List<BoardVO> freeBoardList = this.boardService.listFreeBoard(map);
@@ -109,7 +109,7 @@ public class BoardController {
 		// 상세 누르면 조회수 올리기
 		boardService.updateCnt(freeSeq);
 		
-		BoardVO boardVO = boardService.freeDetail(freeSeq);
+		List<BoardVO> boardVO = boardService.freeDetail(freeSeq);
 		model.addAttribute("boardVO", boardVO);
 		log.info("boardVO : " + boardVO);
 		return "board/freeDetail";
@@ -120,7 +120,7 @@ public class BoardController {
 	@GetMapping("freeUpdate")
 	public String updateForm(@RequestParam("freeSeq") int freeSeq, Model model) {
 		
-		BoardVO boardVO = boardService.freeDetail(freeSeq);
+		List<BoardVO> boardVO = boardService.freeDetail(freeSeq);
 		//수정은 DB에서 값을 가져와야하니 model필요
 		model.addAttribute("board", boardVO);
 		return "board/freeUpdate";
@@ -132,12 +132,12 @@ public class BoardController {
 		boardService.update(boardVO);
 		
 		// 글 수정했으면 다시 회원 id를 찾아, 수정 누르면 그 회원 id가 해당하는 디테일로 바로 보여주려고~
-		BoardVO boardVO2 = boardService.freeDetail(boardVO.getFreeSeq());
+		List<BoardVO> boardVO2 = boardService.freeDetail(boardVO.getFreeSeq());
 		model.addAttribute("board", boardVO2);
 		
 		// 리다이렉트 후에는 새로운 요청이 발생하며, 이전 요청에서 전달된 매개변수는 새로운 요청에서 유지되지 않음
 		// 그래서 freeSeq 매개변수 다시 넘겨줘야함
-		return "redirect:/board/freeDetail?freeSeq=" + boardVO2.getFreeSeq();
+		return "redirect:/board/freeDetail?freeSeq=" + boardVO2.get(0).getFreeSeq();
 		
 		// ★ 리다이렉트는 주로 업데이트할때 사용함
 		//   업데이트하고 뒤로가기 누르면 이전페이지 다시 보여줘야해서 서버에 부하가 감

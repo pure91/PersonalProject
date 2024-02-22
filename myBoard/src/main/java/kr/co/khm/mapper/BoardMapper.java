@@ -31,7 +31,7 @@ public interface BoardMapper {
 	 * @param freeSeq
 	 * @return
 	 */
-	public BoardVO freeDetail(int freeSeq);
+	public List<BoardVO> freeDetail(int freeSeq);
 
 	/**
 	 * 자유게시판 조회수
