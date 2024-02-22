@@ -33,7 +33,11 @@
 	
 	<!-- 자유게시판 디테일 -->
 	<select id="freeDetail" parameterType="int" resultType="boardVO">
-		select * from FREE where FREE_SEQ = #{freeSeq}
+		SELECT * FROM
+		FREE A
+		LEFT OUTER JOIN FILES B
+		ON A.FILES_SEQ = B.FILES_SEQ
+		WHERE FREE_SEQ = #{freeSeq}
 	</select>
 	
 	<!-- 자유게시판 조회수 -->

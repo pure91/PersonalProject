@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since 2024.02.01
  */
 
-@RequestMapping("/main")
+@RequestMapping("main")
 @Controller
 public class MainController {
 
 	// 큰 의미 없음, 그냥 메인화면 분기처리하려고..
-	@GetMapping("/main")
+	@GetMapping("main")
 	public String MainPage() {
 		return "main/main";
 	}

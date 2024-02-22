@@ -20,6 +20,7 @@ import kr.co.khm.util.ArticlePage;
 import kr.co.khm.vo.BoardVO;
 import kr.co.khm.vo.UsersVO;
 import lombok.extern.slf4j.Slf4j;
+import sun.util.logging.resources.logging;
 
 /**
  * @author 김형민
@@ -28,14 +29,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-@RequestMapping("/board")
+@RequestMapping("board")
 @Controller
 public class BoardController {
 
 	@Autowired BoardService boardService;
 	
 	/* 자유게시판 목록 조회 */
-	@GetMapping("/freeList")
+	@GetMapping("freeList")
 	public String listFreeBoard(Model model,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
@@ -74,7 +75,7 @@ public class BoardController {
 	}
 	
 	/* 자유게시판 게시글 등록 폼 이동 */
-	@GetMapping("/freeInsert")
+	@GetMapping("freeInsert")
 	public String insertFreeBoardForm() {
 		log.info("insertFreeBoard 폼으로 이동");
 		return "board/freeInsert";
@@ -82,7 +83,7 @@ public class BoardController {
 	
 	
 	/* 자유게시판 게시글 등록 */
-	@PostMapping("/freeInsert")
+	@PostMapping("freeInsert")
 	public String insertFreeBoard(@ModelAttribute BoardVO boardVO, HttpSession session) {
 		UsersVO loggedInUser = (UsersVO) session.getAttribute("login");
 
@@ -104,19 +105,20 @@ public class BoardController {
 	}
 	
 	/* 자유게시판 상세 */
-	@GetMapping("/freeDetail")
+	@GetMapping("freeDetail")
 	public String freeDetail(@RequestParam("freeSeq") int freeSeq, Model model) {
 		// 상세 누르면 조회수 올리기
 		boardService.updateCnt(freeSeq);
 		
 		BoardVO boardVO = boardService.freeDetail(freeSeq);
-		model.addAttribute("board", boardVO);
+		model.addAttribute("boardVO", boardVO);
+		log.info("boardVO : " + boardVO);
 		return "board/freeDetail";
 	}
 	
 	/* 자유게시판 글 수정 -> 글 수정 폼으로 보내기 */
 	// 다들 그.. 겟버튼 눌러 오는거라 겟매핑임
-	@GetMapping("/freeUpdate")
+	@GetMapping("freeUpdate")
 	public String updateForm(@RequestParam("freeSeq") int freeSeq, Model model) {
 		
 		BoardVO boardVO = boardService.freeDetail(freeSeq);
@@ -138,7 +140,7 @@ public class BoardController {
 	}
 	
 	/* 자유게시판 글 삭제 */
-	@GetMapping("/freeDelete")
+	@GetMapping("freeDelete")
 	public String delete(@RequestParam("freeSeq") int freeSeq) {
 		boardService.delete(freeSeq);
 		return "redirect:/board/freeList";

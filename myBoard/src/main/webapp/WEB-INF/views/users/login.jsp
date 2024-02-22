@@ -16,7 +16,7 @@
 	<div class="container">
 		<h2>로그인 폼</h2>
 		<br>
-		<form action="/users/login" method="post">
+		<form action="/users/login" method="post" id="login-frm">
 			<div class="form-group">
 				<!-- 라벨for랑 인풋id 맞춰줘야함.. 자꾸 까먹네 -->
 				<label for="usersId" class="subject">아이디</label> <input type="text"
@@ -35,7 +35,17 @@
 			<br>
 			<button type="submit" class="btn btn-outline-dark"
 				style="width: -webkit-fill-available;">로그인</button>
+			<button type="button" id="auto-login">테스트용 자동 로그인</button>
 		</form>
 	</div>
+
+	<!-- 자동 로그인 버튼 만들어놓기 매번 로그인 귀찮아서-->
+	<script>
+		$("#auto-login").on("click", function() {
+			$("input[name=usersId]").val("test1");
+			$("input[name=usersPw]").val("test123#");
+			$("#login-frm").submit();
+		});
+	</script>
 </body>
 </html>

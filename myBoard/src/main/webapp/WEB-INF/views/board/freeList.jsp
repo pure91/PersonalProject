@@ -37,10 +37,13 @@
 	margin-bottom: 10px;
 }
 </style>
+<!-- 로그인정보 가져오기 -->
+<c:set var="loggedInUser" value="${sessionScope.login}" />
 
 <title>자유게시판</title>
 </head>
 <body>
+
 	<h2>자유게시판 목록</h2>
 	<fieldset>
 		<div class="search-board-wrap">
@@ -58,7 +61,10 @@
 		</div>
 	</fieldset>
 	
-	<a href="/board/freeInsert">
+	<!-- onclick 이벤트에 return문을 사용하면 기본 동작을 제어할 수 있음
+		 return false는 기본동작 취소, return true는 기본동작 유지 
+		 return안쓰려면 직접 if, else문에 url찍어줘야되서 이게 더 편한 방식인듯-->
+	<a href="/board/freeInsert" onclick="return checkLogin()">
 		<button type="button" class="btn btn-outline-secondary" id="addBoard">
 			<box-icon name='edit'></box-icon>
 			글쓰기
@@ -107,5 +113,19 @@
 	</table>
 	<br>
 	${articlePage.getPagingArea()}
+	
+	<!-- 비회원 글쓰기 막기 -->
+	<script type="text/javascript">
+	function checkLogin() {
+		//세션에 로그인 정보를 변수에 담아줌
+		var loggedInUser = "${sessionScope.login}";
+		
+		if(loggedInUser == null || loggedInUser == "") {
+			alert("로그인 후 글을 작성할 수 있습니다.");
+			return false;
+		}
+		return true;
+	}
+	</script>
 </body>
 </html>
