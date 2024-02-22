@@ -1,7 +1,6 @@
 package kr.co.khm.util;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class PagingHandler {

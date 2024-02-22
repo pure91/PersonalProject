@@ -20,7 +20,6 @@ import kr.co.khm.util.ArticlePage;
 import kr.co.khm.vo.BoardVO;
 import kr.co.khm.vo.UsersVO;
 import lombok.extern.slf4j.Slf4j;
-import sun.util.logging.resources.logging;
 
 /**
  * @author 김형민
@@ -136,7 +135,13 @@ public class BoardController {
 		BoardVO boardVO2 = boardService.freeDetail(boardVO.getFreeSeq());
 		model.addAttribute("board", boardVO2);
 		
-		return "board/freeDetail";
+		// 리다이렉트 후에는 새로운 요청이 발생하며, 이전 요청에서 전달된 매개변수는 새로운 요청에서 유지되지 않음
+		// 그래서 freeSeq 매개변수 다시 넘겨줘야함
+		return "redirect:/board/freeDetail?freeSeq=" + boardVO2.getFreeSeq();
+		
+		// ★ 리다이렉트는 주로 업데이트할때 사용함
+		//   업데이트하고 뒤로가기 누르면 이전페이지 다시 보여줘야해서 서버에 부하가 감
+		//   그리고 이전에 제출한 POST 요청을 다시 전송하지 않기 위함(중복 작업 방지)
 	}
 	
 	/* 자유게시판 글 삭제 */

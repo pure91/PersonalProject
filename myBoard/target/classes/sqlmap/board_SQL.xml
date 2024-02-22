@@ -32,16 +32,16 @@
 	</insert>
 	
 	<!-- 자유게시판 디테일 -->
-	<select id="freeDetail" parameterType="int" resultType="boardVO">
+	<select id="freeDetail" parameterType="boardVO" resultType="boardVO">
 		SELECT * FROM
 		FREE A
 		LEFT OUTER JOIN FILES B
 		ON A.FILES_SEQ = B.FILES_SEQ
-		WHERE FREE_SEQ = #{freeSeq}
+		WHERE A.FREE_SEQ = #{freeSeq}
 	</select>
 	
 	<!-- 자유게시판 조회수 -->
-	<update id="updateCnt" parameterType="int">
+	<update id="updateCnt" parameterType="boardVO">
 		update FREE set FREE_CNT = FREE_CNT + 1
 		where FREE_SEQ = #{freeSeq}
 	</update>

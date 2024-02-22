@@ -30,9 +30,7 @@ public class FilesService {
 		
 		log.info("uploadFile -> uploadFile : " + uploadFile[0].getOriginalFilename());
 		
-		// 파일 insert 성공 건수
 		List<FilesVO> filesVOList = new ArrayList<>();
-		
 		
 		// 년/월/일 폴더 호출
 		// java.io임
@@ -43,7 +41,7 @@ public class FilesService {
 		
 		// 파일 번호 생성
 		int filesSeq = filesMapper.getFilesSeq();
-		log.info("uploadFile -> filesNo : " + filesSeq);
+		log.info("uploadFile -> filesSeq : " + filesSeq);
 		
 		// uploadFile 변수(리스트)에 담긴 사진들(multipartFile 객체) 포문 돌림
 		// 순회하면서 사진들의 원본파일명을 가져와서 할당해줌
@@ -85,6 +83,7 @@ public class FilesService {
 				
 				this.filesMapper.insertFiles(filesVO); // 파일 인서트 DB처리
 				filesVOList.add(filesVO); // 처리된 내용을 리스트에 추가
+				log.info("filesVOList : " + filesVOList);
 			} catch(IllegalStateException | IOException e) {
 				log.error(e.getMessage());
 			}

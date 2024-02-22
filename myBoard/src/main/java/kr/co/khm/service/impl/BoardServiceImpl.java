@@ -11,6 +11,7 @@ import kr.co.khm.service.BoardService;
 import kr.co.khm.service.FilesService;
 import kr.co.khm.vo.BoardVO;
 import kr.co.khm.vo.FilesVO;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 김형민
@@ -18,6 +19,7 @@ import kr.co.khm.vo.FilesVO;
  * @since 2024.01.30
  */
 
+@Slf4j
 @Service
 public class BoardServiceImpl implements BoardService{
 	
@@ -43,13 +45,16 @@ public class BoardServiceImpl implements BoardService{
 		
 		// 글쓰기전에 파일첨부 먼저 다녀옴
 		List<FilesVO> filesVOList = filesService.uploadFile(boardVO.getUploadFile(), "freeBoard"); // 얘 호출해서 파일 업로드하는거
+		log.info("insertFreeBoard -> filesVOList" + filesVOList);
 		// uploadFile 메서드는 파일 업로드하고 해당 파일의 정보를 담음 FilesVO 객체의 리스트를 반환함
 		// 이 FilesVO 객체에 업로드된 파일 정보를 설정, 리스트에 추가하고 서버에 저장함
 		
 		// "freeBoard"자리 매개변수가 원래 folder인데 업로드된 파일들이 저장될 폴더를 지정하는 변순데
 		//  그 폴더명 분류를 freeBoard로 하고자 저렇게 넣었음
 		
+		
 		boardVO.setFilesSeq(filesVOList.get(0).getFilesSeq());
+		log.info("filesVOList -> setFilesSeq" + filesVOList.get(0).getFilesSeq());
 		// 반환된 FilesVOList에서 첫번째 파일의 파일Seq 값을 가져와서
 		// 게시글 객체인 boardVO의 filesSeq에 똑같이 세팅해준다.
 		// 만약 여러장 넣으려면 get(0)빼고 그냥 세팅자체를 setFilesSeqlist에(filesVOList)하면될듯..?
