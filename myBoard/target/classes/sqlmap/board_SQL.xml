@@ -58,22 +58,39 @@
 	</update>
 	
 	<!-- 자유게시판 전체 글 수 가져오기(페이징 처리) -->
+<!-- 	<select id="getTotal" parameterType="hashMap" resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM ( -->
+<!-- 			SELECT ROWNUM AS R, F.* -->
+<!-- 			FROM -->
+<!-- 				(SELECT FREE_SEQ, FREE_TITLE, FREE_CONTENTS, USERS_NAME, FREE_WRT_DATE, FILES_SEQ -->
+<!-- 				FROM FREE -->
+<!-- 				WHERE 1 = 1 -->
+<!-- 				<if test="searchType=='title'"> -->
+<!-- 					AND FREE_TITLE LIKE '%' || #{keyword} || '%' -->
+<!-- 				</if> -->
+<!-- 				<if test="searchType=='content'"> -->
+<!-- 					AND FREE_CONTENTS LIKE '%' || #{keyword} || '%' -->
+<!-- 				</if> -->
+<!-- 				ORDER BY FREE_SEQ DESC -->
+<!-- 				) F -->
+<!-- 			 ) -->
+<!-- 	</select> -->
+	
 	<select id="getTotal" parameterType="hashMap" resultType="int">
-		SELECT COUNT(*)
-		FROM (
-			SELECT ROWNUM AS R, F.*
-			FROM
-				(SELECT FREE_SEQ, FREE_TITLE, FREE_CONTENTS, USERS_NAME, FREE_WRT_DATE, FILES_SEQ
-				FROM FREE
-				WHERE 1 = 1
-				<if test="searchType=='title'">
-					AND FREE_TITLE LIKE '%' || #{keyword} || '%'
-				</if>
-				<if test="searchType=='content'">
-					AND FREE_CONTENTS LIKE '%' || #{keyword} || '%'
-				</if>
-				ORDER BY FREE_SEQ DESC
-				) F
-			 )
-	</select>
+      SELECT COUNT(*)
+      FROM
+            (SELECT FREE_SEQ, FREE_TITLE, FREE_CONTENTS, USERS_NAME, FREE_WRT_DATE, FILES_SEQ
+            FROM FREE
+            WHERE 1 = 1
+            <if test="searchType=='title'">
+               AND FREE_TITLE LIKE '%' || #{keyword} || '%'
+            </if>
+            <if test="searchType=='content'">
+               AND FREE_CONTENTS LIKE '%' || #{keyword} || '%'
+            </if>
+            ORDER BY FREE_SEQ DESC
+            ) F
+   </select>
+   
 </mapper>

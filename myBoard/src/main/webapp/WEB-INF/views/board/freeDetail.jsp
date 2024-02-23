@@ -5,10 +5,10 @@
 <!DOCTYPE html>
 <html>
 <style>
+	/* 사진 한장마다 한칸씩 내리기*/
 	.image-grid {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 	}
 	.image-grid img {
 		max-width: 300px;

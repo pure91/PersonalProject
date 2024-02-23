@@ -27,14 +27,24 @@
 	
 
 	<!-- DB 연동 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName"
-			value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:xe"/>
-		<property name="username" value="myboard" />
-		<property name="password" value="java"/>
-	</bean>
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> -->
+<!-- 		<property name="driverClassName" -->
+<!-- 			value="oracle.jdbc.driver.OracleDriver"/> -->
+<!-- 		<property name="url" -->
+<!-- 			value="jdbc:oracle:thin:@localhost:1521:xe"/> -->
+<!-- 		<property name="username" value="myboard" /> -->
+<!-- 		<property name="password" value="java"/> -->
+<!-- 	</bean> -->
+
+	<!-- DB mySQL로 바꿈 2024.02.23 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName"
+         value="com.mysql.jdbc.Driver"/>
+      <property name="url"
+         value="jdbc:mysql://byung.cb0uggoy4ihj.ap-southeast-2.rds.amazonaws.com:3306/test?useSSL=false&amp;serverTimezone=UTC&amp;autoReconnection=true&amp;allowMultiQueries=true"/>
+      <property name="username" value="jukk02" />
+      <property name="password" value="tkfkdgo89!"/>
+   </bean>
 	
 	<!-- Mybatis DB 프로그램의 자동화 객체 template -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
