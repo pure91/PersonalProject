@@ -37,13 +37,13 @@ public class LikeController {
 		
 		if(likeCheck == 0) {
 			// 카운트 0 잡히면 좋아요 처음 누르는거(db에 default 0으로 해놨음)
-			likeService.insertLike(freeSeq, usersId); 		// like 테이블 삽입
-			likeService.updateLike(freeSeq);				// 게시판 테이블 + 1
-			likeService.updateLikeCheck(freeSeq, usersId);	// like 테이블 구분자 1
+			likeService.insertLike(freeSeq, usersId); 		// 게시글 좋아요 시 likes 테이블 삽입
+			likeService.updateLike(freeSeq);				// 게시글 좋아요 + 1
+			likeService.updateLikeCheck(freeSeq, usersId);	// 게시글 좋아요 수 중복 방지
 		} else if(likeCheck == 1) {
-			likeService.updateLikeCheckCancel(freeSeq, usersId); // like 테이블 구분자 0
-			likeService.updateLikeCancle(freeSeq);				 // 게시판 테이블 - 1
-			likeService.deleteLike(freeSeq, usersId);			 // likde 테이블 삭제
+			likeService.updateLikeCheckCancel(freeSeq, usersId); // 게시글 좋아요 취소 시 0
+			likeService.updateLikeCancel(freeSeq);				 // 게시글 좋아요 - 1
+			likeService.deleteLike(freeSeq, usersId);			 // 게시글 취소 시 likes 테이블 삭제
 		}
 		return likeCheck;
 	}
