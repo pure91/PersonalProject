@@ -32,8 +32,10 @@ public class LikeController {
 	@ResponseBody
 	@PostMapping("board/updateLike")
 	public int updateLike(int freeSeq, String usersId)throws Exception{
+		log.info("updateLike : freeSeq = {}, usersId = {}", freeSeq, usersId);
 		
 		int likeCheck = likeService.likeCheck(freeSeq, usersId);
+		log.info("updateLike -> likeCheck : " + likeCheck);
 		
 		if(likeCheck == 0) {
 			// 카운트 0 잡히면 좋아요 처음 누르는거(db에 default 0으로 해놨음)

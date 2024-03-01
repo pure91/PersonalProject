@@ -14,6 +14,10 @@
 		max-width: 300px;
 		max-height: 300px;
 	}
+	
+	#likeAndHate {
+		float : right;
+	}
 </style>
 <head>
 <!-- 로그인정보 가져오기 -->
@@ -22,6 +26,13 @@
 <title>게시판 상세</title>
 </head>
 <body>
+	<!-- 좋아요, 싫어요 -->
+	<div id="likeAndHate">
+		<button type="button" class="btn btn-warning" id="like_btn" onclick="updateLike(); return false;">좋아요</button>
+		<button type="button" class="btn btn-danger" id="hate_btn">싫어요</button>
+ 	</div>
+ 	
+ 	<!-- 상세 내용 -->
 	<table>
 		<tr>
 			<th>회원ID</th>
@@ -61,6 +72,7 @@
     		</c:forEach>
 		</tr>
 	</table>
+ 	
 	<!-- 내가 작성한 글만 수정, 삭제버튼 보이게하기 -->
 	<c:choose>
 		<c:when test="${loggedInUser.usersId eq boardVO[0].usersId}">
@@ -89,6 +101,39 @@
 		function deleteFn(){
 			const no = ${boardVO[0].freeSeq};
 			location.href = "/board/freeDelete?freeSeq=" + no;
+		}
+	</script>
+	
+	<script>
+		var freeSeq = ${boardVO[0].freeSeq};
+		var usersId = "${loggedInUser.usersId}"; // jsp는 상관없어도 javaScript에서는 $달러까지 ""문자열로 감싸줘야함 why?안그러면 그냥 변수명으로 착각함
+		console.log("usersId : ", usersId);
+		var usersName = "${boardVO[0].usersName}";
+		
+		function updateLike(){
+			$.ajax({
+				url : "/like/board/updateLike",
+				type : "POST",
+				dataType : "json",
+				data : {
+					"freeSeq" : freeSeq,
+					"usersId" : usersId,
+					"usersName" : usersName,
+				},
+				error : function(){
+					alert("통신 에러");
+				},
+				success : function(likeCheck) {
+					if(likeCheck == 0){
+						alert("좋아요 완료");
+						location.reload();
+					}
+					else if (likeCheck == 1){
+						alert("싫어요 완료");
+						location.reload();
+					}
+				}
+			});
 		}
 	</script>
 </html>

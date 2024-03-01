@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.khm.mapper.LikeMapper">
 
+	<!-- 게시글 좋아요 시 Likes 테이블에 insert 
+	Oracle에서 MySQL로 바꿔가지고 NVL쓰면 에러남.. IFNULL써야함-->
+	<insert id="insertLike">
+		INSERT INTO LIKES(LIKE_NO, FREE_SEQ, USERS_ID)
+		SELECT IFNULL(MAX(LIKE_NO),0)+1, #{freeSeq}, #{usersId}
+		FROM LIKES
+		LIMIT 1;
+	</insert>
+
 	<!-- 좋아요 중복 체크 -->
 	<select id="likeCheck" resultType="int">
 		SELECT COUNT(*)

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import kr.co.khm.mapper.LikeMapper;
 import kr.co.khm.service.LikeService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class LikeServiceImpl implements LikeService{
 
@@ -20,7 +22,10 @@ public class LikeServiceImpl implements LikeService{
 	 */
 	@Override
 	public int likeCheck(int freeSeq, String usersId) {
-		return likeMapper.likeCheck(freeSeq, usersId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("usersId", usersId);
+		map.put("freeSeq", freeSeq);
+		return likeMapper.likeCheck(map);
 	}
 
 	
@@ -30,9 +35,10 @@ public class LikeServiceImpl implements LikeService{
 	@Override
 	public void insertLike(int freeSeq, String usersId) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("usersId", usersId);
-		map.put("freeSeq", freeSeq);
-		likeMapper.insertLike(freeSeq, usersId);
+		map.put("usersId", usersId); // map.put("usersId", usersId) → 키 값과 쿼리문의 #{usersId} 와 같아야함 MyBatis의 동적 SQL 바인딩으로 #{}안에 있는게 변수 이름이니까..
+		map.put("freeSeq", freeSeq); // map.put("freeSeq", freeSeq) → 키 값과 쿼리문의 #{freeSeq} 와 같아야함 그래야 변수 값 바인딩해서 SQL 쿼리 실행함
+		log.info("ServiceImpl -> insertLike : " + map);
+		likeMapper.insertLike(map);
 	}
 
 	
@@ -50,7 +56,10 @@ public class LikeServiceImpl implements LikeService{
 	 */
 	@Override
 	public void updateLikeCheck(int freeSeq, String usersId) {
-		likeMapper.updateLikeCheck(freeSeq, usersId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("usersId", usersId);
+		map.put("freeSeq", freeSeq);
+		likeMapper.updateLikeCheck(map);
 		
 	}
 
@@ -60,7 +69,10 @@ public class LikeServiceImpl implements LikeService{
 	 */
 	@Override
 	public void updateLikeCheckCancel(int freeSeq, String usersId) {
-		likeMapper.updateLikeCheckCancel(freeSeq, usersId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("usersId", usersId);
+		map.put("freeSeq", freeSeq);
+		likeMapper.updateLikeCheckCancel(map);
 		
 	}
 
@@ -80,7 +92,10 @@ public class LikeServiceImpl implements LikeService{
 	 */
 	@Override
 	public void deleteLike(int freeSeq, String usersId) {
-		likeMapper.deleteLike(freeSeq, usersId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("usersId", usersId);
+		map.put("freeSeq", freeSeq);
+		likeMapper.deleteLike(map);
 	}
 	
 }

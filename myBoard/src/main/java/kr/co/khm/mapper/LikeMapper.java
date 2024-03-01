@@ -1,21 +1,20 @@
 package kr.co.khm.mapper;
 
+import java.util.Map;
+
 public interface LikeMapper {
 
 	/** 좋아요 중복 체크
-	 * @param freeSeq
-	 * @param usersId
+	 * @param map
 	 * @return
 	 */
-	int likeCheck(int freeSeq, String usersId);
+	int likeCheck(Map<String, Object> map);
 
 	
-	/** 게시글 좋아요 시 Likes 테이블에 insert
-	 * @param freeSeq
-	 * @param usersId
-	 * @return
+	/**게시글 좋아요 시 Likes 테이블에 insert
+	 * @param map
 	 */
-	void insertLike(int freeSeq, String usersId);
+	void insertLike(Map<String, Object> map);
 
 
 	/**
@@ -24,21 +23,17 @@ public interface LikeMapper {
 	 */
 	void updateLike(int freeSeq);
 
-
-	/**
-	 * 게시글 좋아요 수 중복 방지
-	 * @param freeSeq
-	 * @param usersId
+	
+	/**게시글 좋아요 수 중복 방지
+	 * @param map
 	 */
-	void updateLikeCheck(int freeSeq, String usersId);
+	void updateLikeCheck(Map<String, Object> map);
 
 
-	/**
-	 * 게시글 좋아요 취소 시 Likes 테이블 0
-	 * @param freeSeq
-	 * @param usersId
+	/**게시글 좋아요 취소 시 Likes 테이블 0
+	 * @param map
 	 */
-	void updateLikeCheckCancel(int freeSeq, String usersId);
+	void updateLikeCheckCancel(Map<String, Object> map);
 
 
 	/**
@@ -47,13 +42,16 @@ public interface LikeMapper {
 	 */
 	void updateLikeCancel(int freeSeq);
 
-
 	
-	/**
-	 * 게시글 취소 시 likes 테이블 삭제
-	 * @param freeSeq
-	 * @param usersId
+	/** 게시글 취소 시 likes 테이블 삭제
+	 * @param map
 	 */
-	void deleteLike(int freeSeq, String usersId);
+	void deleteLike(Map<String, Object> map);
+
+
+
+
+
+
 
 }
