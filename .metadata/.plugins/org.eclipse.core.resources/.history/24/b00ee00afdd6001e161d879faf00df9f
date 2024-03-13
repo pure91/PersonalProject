@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.khm.mapper.LikeMapper">
+
+	<!-- 좋아요 중복 체크 -->
+	<select id="likeCheck" resultType="int">
+		SELECT COUNT(*)
+		FROM LIKES
+		WHERE FREE_SEQ = #{freeSeq} AND USERS_ID = #{usersId}
+	</select>
+	
+	
+	<!-- 게시글 좋아요 수 -->
+	<update id="updateLike">
+		UPDATE LIKES SET
+		LIKEHIT = LIKEHIT +1
+		where FREE_SEQ = #{freeSeq}
+	</update>
+	
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.khm.mapper.LikeMapper">
+
+	<!-- 게시글 좋아요 시 Likes 테이블에 insert 
+	Oracle에서 MySQL로 바꿔가지고 NVL쓰면 에러남.. IFNULL써야함-->
+	<insert id="insertLike">
+		INSERT INTO LIKES(LIKE_NO, FREE_SEQ, USERS_ID)
+		VALUES((SELECT IFNULL(MAX(LIKE_NO),0)+1 FROM LIKES), #{freeSeq}, #{usersId})
+	</insert>
+
+	<!-- 좋아요 중복 체크 -->
+	<select id="likeCheck" resultType="int">
+		SELECT COUNT(*)
+		FROM LIKES
+		WHERE FREE_SEQ = #{freeSeq} AND USERS_ID = #{usersId}
+	</select>
+	
+	
+	<!-- 게시글 좋아요 수 -->
+	<update id="updateLike">
+		UPDATE FREE SET
+		LIKEHIT = LIKEHIT +1
+		where FREE_SEQ = #{freeSeq}
+	</update>
+	
+	
+	<!-- 게시판 좋아요 수 중복 방지 -->
+	<update id="updateLikeCheck">
+		UPDATE LIKES LIKECHECK = 1
+		WHERE FREE_SEQ = #{freeSeq} AND USERS_ID = #{usersId}
+	</update>
+	
+	<!-- 게시글 좋아요 취소 시 Likes 테이블 0 -->
+	<update id="updateLikeCheckCancel">
+		UPDATE LIKES SET LIKECHECK = 0
+		WHERE FREE_SEQ = #{freeSeq} AND USERS_ID = #{usersId}
+	</update>
+	
+	<!-- 게시글 좋아요 - 1 -->
+	<update id="updateLikeCancel">
+		UPDATE FREE SET LIKEHIT = LIKEHIT - 1
+		WHERE FREE_SEQ = #{freeSeq}
+	</update>
+	
+	<!-- 게시글 취소 시 likes 테이블 삭제 -->
+	<delete id="deleteLike">
+		DELETE FROM LIKES
+		WHERE FREE_SEQ = #{freeSeq} AND USERS_ID = #{usersId}
+	</delete>
+	
+</mapper>
